@@ -1,0 +1,79 @@
+* {
+  flex-wrap: wrap;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: quicksand;
+  src: url(./fonts/Quicksand_Bold.otf);
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  min-height: 100vh;
+  width: 100%;
+  background-color: #3AAFA9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#container {
+  font-family: quicksand;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #272727;
+  padding: 2rem;
+  border-radius: 15px;
+  gap: 2rem;
+  box-shadow: 0px 0px 10px black;
+}
+
+#preview {
+  width: 100%;
+  background-color: white;
+  border-radius: 15px;
+  padding: 1rem;
+  user-select: none;
+}
+
+#preview > p {
+  text-align: right;
+}
+
+#buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  align-items: center;
+  justify-items: center;
+  grid-gap: 0.5rem;
+}
+
+.grid-element {
+  border-radius: 50%;
+  background-color: #747474;
+  width: 4.15rem;
+  height: 4rem;
+  padding: 1em;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.25rem;
+  user-select: none;
+}
+
+.grid-element:hover {
+  background-color: #595959;
+  cursor: pointer;
+}
+
+#equations {
+  border-radius: 2.5rem;
+  grid-column: 3 / 5;
+  width: 100%;
+}
