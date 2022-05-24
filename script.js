@@ -1,4 +1,24 @@
+let currentValue = "0";
+let firstValue = "0";
+let operatorValue = "";
+
 const grid = document.getElementById('buttons');
+const display = document.getElementById('display');
+const equals = document.getElementById('equals');
+const numbers = document.querySelectorAll('.number');
+const commands = document.querySelectorAll('.command');
+const clear = document.querySelector('.AC');
+const backspace = document.querySelector('.C');
+
+numbers.forEach((number) => {
+  number.onclick = (e)=>{numberClick(e.target.textContent)};
+});
+commands.forEach((command) => {
+  command.onclick = (e)=>{commandClick(e.target.textContent)};
+});
+clear.onclick = ()=>{restart()};
+equals.onclick = ()=>{operate()};
+backspace.onclick = ()=>{eraseDigit()};
 
 //math operators
 
@@ -20,17 +40,91 @@ function divide(a, b) {
 
 //functions
 
-function operate(operator, a, b) {
+function populate() {
+  display.textContent = currentValue;
+}
+
+function eraseDigit() {
+  if(operatorValue !== "") {
+    operatorValue = "";
+    display.textContent = firstValue;
+    return;
+  }
+  if(firstValue !== "") {
+    firstValue = firstValue.slice(0, firstValue.length-1);
+    if(firstValue.length === 0) {
+      firstValue = "0";
+    }
+    display.textContent = firstValue;
+    return;
+  }
+  if(currentValue !== "") {
+    currentValue = currentValue.slice(0, currentValue.length-1);
+    if(currentValue.length === 0) {
+      currentValue = "0";
+    }
+    populate();
+    return;
+  }
+}
+
+function numberClick(value) {
+  if(currentValue==="0") {
+    currentValue = "";
+  }
+  currentValue += value;
+  populate();
+}
+
+function commandClick(value) {
+  if(operatorValue !== "") {
+    operate();
+    firstValue = currentValue;
+    operatorValue = value;
+    currentValue = "0";
+    display.textContent = firstValue + " " + value;
+    return;
+  }
+  if(firstValue === "0") {
+    firstValue = currentValue;
+    operatorValue = value;
+    currentValue = "0"
+    display.textContent = firstValue + " " + value;
+    return;
+  }
+  if(operatorValue === "") {
+    operatorValue = value;
+    currentValue = "0";
+    display.textContent = firstValue + " " + value;
+  }
+}
+
+function operate() {
+  let a = parseInt(firstValue);
+  let b = parseInt(currentValue);
+  let operator = operatorValue;
+
+  firstValue = "0", operatorValue = "";
+  let hasil;
   if(operator == '+') {
-    return add(a, b);
+    hasil = add(a, b);
   }
   else if(operator == '-') {
-    return subtract(a, b);
+    hasil = subtract(a, b);
   }
-  else if(operator == '*') {
-    return multiply(a, b);
+  else if(operator == 'x') {
+    hasil = multiply(a, b);
   }
   else {
-    return divide(a, b);
+    hasil = divide(a, b);
   }
+  currentValue = hasil.toString();
+  populate();
+}
+
+function restart() {
+  currentValue = "0";
+  startValue = "0";
+  operatorValue = "";
+  populate();
 }

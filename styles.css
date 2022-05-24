@@ -73,7 +73,7 @@ body {
   cursor: pointer;
 }
 
-#equations {
+#equals {
   border-radius: 2.5rem;
   grid-column: 3 / 5;
   width: 100%;
