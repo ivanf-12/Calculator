@@ -50,7 +50,7 @@ function eraseDigit() {
     display.textContent = firstValue;
     return;
   }
-  if(firstValue !== "") {
+  if(firstValue !== "0") {
     firstValue = firstValue.slice(0, firstValue.length-1);
     if(firstValue.length === 0) {
       firstValue = "0";
@@ -58,7 +58,7 @@ function eraseDigit() {
     display.textContent = firstValue;
     return;
   }
-  if(currentValue !== "") {
+  if(currentValue !== "0") {
     currentValue = currentValue.slice(0, currentValue.length-1);
     if(currentValue.length === 0) {
       currentValue = "0";
@@ -77,13 +77,17 @@ function numberClick(value) {
 }
 
 function commandClick(value) {
-  if(operatorValue !== "") {
+  if(operatorValue !== "" && currentValue !== "0") {
     operate();
     firstValue = currentValue;
     operatorValue = value;
     currentValue = "0";
     display.textContent = firstValue + " " + value;
     return;
+  }
+  if(operatorValue != "" && currentValue === "0") {
+    operatorValue = value;
+    display.textContent = firstValue + " " + value;
   }
   if(firstValue === "0") {
     firstValue = currentValue;
