@@ -25,6 +25,8 @@ clear.onclick = ()=>clearAll();
 backspace.onclick =()=>erase();
 dot.onclick = ()=>addDot();
 document.onkeypress = (e)=>triggerClick(e.key);
+document.onkeydown = (e)=>triggerBackspace(e.key);
+document.onkeyup = (e)=>triggerEnter(e.key);
 
 function add(a, b) {
   return a + b;
@@ -39,8 +41,37 @@ function divide(a, b) {
   return a / b;
 }
 
+function triggerEnter(value) {
+  if(value === 'Enter') {
+    const equal = document.getElementById('equals');
+    equal.click();
+  }
+}
+
+function triggerBackspace(value) {
+  if(value === 'Backspace') {
+    const ac = document.getElementById('C');
+    ac.click();
+  }
+}
+
 function triggerClick(value) {
-  const targetKey = document.getElementById(`${value}`);
+  if(value === '.') {
+    value = 'dot';
+  }
+  else if(value === '+') {
+    value = 'plus';
+  }
+  else if(value === ':') {
+    value = 'divide';
+  } 
+  else if(value === '*') {
+    value = 'x';
+  }
+  else if(value === '-') {
+    value = 'minus';
+  }
+  const targetKey = document.querySelector(`.n${value}`);
   if(targetKey !== null) {
     targetKey.click();
   }
