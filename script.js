@@ -1,15 +1,17 @@
 let firstValue = "0";
 let secondValue = "0";
 let operatorValue = "";
+let curDot = false;
 
 const grid = document.getElementById('buttons');
 const preDisplay = document.getElementById('pre-display');
 const display = document.getElementById('display');
 const equals = document.getElementById('equals');
+const clear = document.getElementById('AC');
+const backspace = document.getElementById('C');
+const dot = document.getElementById('dot');
 const numbers = document.querySelectorAll('.number');
 const commands = document.querySelectorAll('.command');
-const clear = document.querySelector('#AC');
-const backspace = document.querySelector('#C');
 
 numbers.forEach((number)=>{
   number.onclick = (e)=>{numberClick(e.target.textContent)};
@@ -21,6 +23,7 @@ commands.forEach((command)=>{
 equals.onclick = ()=>operate(operatorValue);
 clear.onclick = ()=>clearAll();
 backspace.onclick =()=>erase();
+dot.onclick = ()=>addDot();
 
 function add(a, b) {
   return a + b;
@@ -37,6 +40,11 @@ function divide(a, b) {
 
 function numberClick(digit) {
   if(operatorValue === '') {
+    if(document.getElementById('show') !== null) {
+      //the number in the display.textContent is only result of previous 
+      //calculation, so user can't concatenate any digit
+      return; 
+    }
     if(firstValue === '0') {
       firstValue = digit;
     }
@@ -56,7 +64,27 @@ function numberClick(digit) {
   }
 }
 
+function addDot() {
+  if(curDot === true) {
+    //there's already one dot in this number
+    return;
+  }
+  if(operatorValue === '') {
+    if(document.getElementById('show') !== null) {
+      return;
+    }
+    firstValue += '.';
+    display.textContent = firstValue;
+  }
+  else {
+    secondValue += '.';
+    display.textContent = secondValue;
+  }
+  curDot = true;
+}
+
 function commandClick(com) {
+  curDot = false;
   if(operatorValue !== '' && secondValue === '0') {
     //old operator being replaced by the new one
     operatorValue = com;
@@ -91,7 +119,7 @@ function operate(tipe) {
     return;
   }
   let hasil;
-  a = parseInt(firstValue), b = parseInt(secondValue);
+  a = parseFloat(firstValue), b = parseFloat(secondValue);
   if(tipe === '+') {
     hasil = add(a, b);
   }
@@ -104,11 +132,16 @@ function operate(tipe) {
   else if(tipe === ':') {
     hasil = divide(a, b);
   }
+  if(!Number.isInteger(hasil)) {
+    //if 'hasil' is a float number, set it precision to 2
+    hasil = hasil.toFixed(2);
+  }
   preDisplay.textContent += ' ' + secondValue + ' ' + '=';
   secondValue = '0';
   operatorValue = '';
   firstValue = hasil.toString();
   display.textContent = firstValue;
+  curDot = false;
 }
 
 function erase() {
@@ -120,6 +153,9 @@ function erase() {
       return;
     }
     if(firstValue.length > 1) {
+      if(firstValue[firstValue.length-1] === '.') {
+        curDot = false;
+      }
       firstValue = firstValue.slice(0, firstValue.length-1);
       display.textContent = firstValue;
     }
@@ -134,6 +170,9 @@ function erase() {
       return;
     }
     if(secondValue.length > 1) {
+      if(secondValue[secondValue.length-1] === '.') {
+        curDot = false;
+      }
       secondValue = secondValue.slice(0, secondValue.length-1);
       display.textContent = secondValue;
     }
@@ -150,4 +189,5 @@ function clearAll() {
   secondValue = '0';
   operatorValue = '';
   display.textContent = '0';
+  curDot = false;
 }
