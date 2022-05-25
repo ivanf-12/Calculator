@@ -96,7 +96,7 @@ body {
   cursor: pointer;
 }
 
-.number:hover, .decimal:hover {
+.number:hover, .decimal:hover, #dot:hover {
   background-color: #bfbfbf;
   color: #272727;
 }

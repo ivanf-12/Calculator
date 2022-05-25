@@ -24,6 +24,7 @@ equals.onclick = ()=>operate(operatorValue);
 clear.onclick = ()=>clearAll();
 backspace.onclick =()=>erase();
 dot.onclick = ()=>addDot();
+document.onkeypress = (e)=>triggerClick(e.key);
 
 function add(a, b) {
   return a + b;
@@ -36,6 +37,13 @@ function multiply(a, b) {
 }
 function divide(a, b) {
   return a / b;
+}
+
+function triggerClick(value) {
+  const targetKey = document.getElementById(`${value}`);
+  if(targetKey !== null) {
+    targetKey.click();
+  }
 }
 
 function numberClick(digit) {
