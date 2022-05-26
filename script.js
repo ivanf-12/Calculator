@@ -84,9 +84,6 @@ function numberClick(digit) {
       //the result of previous calculation
       return; 
     }
-    if(firstValue.length === 12) {
-      return;
-    }
     if(firstValue === '0') {
       firstValue = digit;
     }
@@ -96,9 +93,6 @@ function numberClick(digit) {
     display.textContent = firstValue;
   }
   else {
-    if(secondValue.length === 12) {
-      return;
-    }
     if(secondValue === '0') {
       secondValue = digit;
     }
@@ -186,7 +180,17 @@ function operate(tipe) {
   }
   if(!Number.isInteger(hasil)) {
     //if 'hasil' is a float number, set it precision to 2
-    hasil = hasil.toFixed(5);
+    let lokasi = 0;
+    hasilStr = hasil.toString();
+    for(let i=0; i<hasilStr.length; ++i) {
+      if(hasilStr[i] === '.') {
+        lokasi = i;
+        break;
+      }
+    }
+    if(hasilStr.length - lokasi >= 12) {
+      hasil = hasil.toFixed(12);
+    }
   }
   preDisplay.textContent += ' ' + secondValue + ' ' + '=';
   secondValue = '0';

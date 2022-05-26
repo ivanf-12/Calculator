@@ -21,6 +21,8 @@ body {
 }
 
 #container {
+  width: 300px;
+  max-width: initial;
   font-family: quicksand;
   display: flex;
   flex-direction: column;
@@ -36,25 +38,27 @@ body {
   width: 100%;
   background-color: #ECECEC;
   border-radius: 15px;
-  padding: 0 1rem;
+  padding: 1rem;
   user-select: none;
-  font-size: 2rem;
+  font-size: 1.25rem;
   display: flex;
   flex-direction: column;
 }
 
 #pre-display {
-  font-size: 1.5rem;
+  font-size: 0.75rem;
   visibility: hidden;
 }
 
 #show {
-  font-size: 1.5rem;
+  font-size: 0.75rem;
   color: red;
   visibility: initial;
 }
 
-#preview > p {
+#preview > div {
+  word-wrap: break-word;
+  word-break: break-all;
   text-align: right;
 }
 
@@ -83,14 +87,14 @@ body {
 .grid-element {
   border-radius: 50%;
   background-color: #747474;
-  width: 4.75rem;
-  height: 4.6rem;
+  aspect-ratio: 1;
+  width: 100%;
   padding: 1em;
   color: white;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1.25rem;
+  font-size: 1rem;
   user-select: none;
 }
 
@@ -103,6 +107,10 @@ body {
   color: #272727;
 }
 
+.del {
+  aspect-ratio: 2/1;
+}
+
 .del:hover {
   background-color: #F78888;
 }
@@ -113,26 +121,4 @@ body {
 
 .equals:hover {
   background-color: #84f586;
-}
-
-@media (max-width: 35em) {
-  .grid-element {
-    width: 3.45rem;
-    height: 3.3rem;
-    font-size: 1rem;
-  }
-
-  #preview {
-    font-size: 1.25rem;
-  }
-
-  #pre-display {
-    font-size: 0.75rem;
-  }
-
-  #show {
-    font-size: 0.75rem;
-    color: red;
-    visibility: initial;
-  }
 }
