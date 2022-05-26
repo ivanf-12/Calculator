@@ -80,9 +80,12 @@ function triggerClick(value) {
 function numberClick(digit) {
   if(operatorValue === '') {
     if(document.getElementById('show') !== null) {
-      //the number in the display.textContent is only result of previous 
-      //calculation, so user can't concatenate any digit
+      //the number in the display.textContent is either the secondValue or
+      //the result of previous calculation
       return; 
+    }
+    if(firstValue.length === 12) {
+      return;
     }
     if(firstValue === '0') {
       firstValue = digit;
@@ -93,6 +96,9 @@ function numberClick(digit) {
     display.textContent = firstValue;
   }
   else {
+    if(secondValue.length === 12) {
+      return;
+    }
     if(secondValue === '0') {
       secondValue = digit;
     }
@@ -148,6 +154,7 @@ function commandClick(com) {
     operatorValue = com;
     preDisplay.textContent = firstValue + ' ' + operatorValue;
     preDisplay.setAttribute('id', 'show');
+    display.textContent = secondValue;
     return;
   }
 }
@@ -169,11 +176,17 @@ function operate(tipe) {
     hasil = multiply(a, b);
   }
   else if(tipe === ':') {
-    hasil = divide(a, b);
+    if(secondValue === '0') {
+      display.textContent = 'Cant divide by 0 !';
+      return;
+    }
+    else {
+      hasil = divide(a, b);
+    }
   }
   if(!Number.isInteger(hasil)) {
     //if 'hasil' is a float number, set it precision to 2
-    hasil = hasil.toFixed(2);
+    hasil = hasil.toFixed(5);
   }
   preDisplay.textContent += ' ' + secondValue + ' ' + '=';
   secondValue = '0';
