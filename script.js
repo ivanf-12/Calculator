@@ -42,7 +42,7 @@ function divide(a, b) {
 
 function triggerEnter(value) {
   if(value === 'Enter') {
-    const equal = document.getElementById('equals');
+    const equal = document.getElementById('nequal');
     equal.click();
   }
 }
@@ -69,6 +69,9 @@ function triggerClick(value) {
   }
   else if(value === '-') {
     value = 'minus';
+  }
+  else if(value === '=') {
+    value = 'equal';
   }
   const targetKey = document.querySelector(`.n${value}`);
   if(targetKey !== null) {
