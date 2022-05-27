@@ -1,15 +1,14 @@
-let firstValue = "0";
-let secondValue = "0";
-let operatorValue = "";
-let curDot = false;
+let firstOperand = "0";
+let secondOperand = "0";
+let curOperator = "";
+let dotUsed = false;
 
-const grid = document.getElementById('buttons');
-const preDisplay = document.getElementById('pre-display');
-const display = document.getElementById('display');
-const equals = document.getElementById('equals');
+const topDisplay = document.getElementById('top-display');
+const bottomDisplay = document.getElementById('bottom-display');
+const equals = document.getElementById('nequal');
 const clear = document.getElementById('AC');
 const backspace = document.getElementById('C');
-const dot = document.getElementById('dot');
+const dot = document.getElementById('ndot');
 const numbers = document.querySelectorAll('.number');
 const commands = document.querySelectorAll('.command');
 
@@ -20,7 +19,7 @@ commands.forEach((command)=>{
   command.onclick = (e)=>{commandClick(e.target.textContent)};
 });
 
-equals.onclick = ()=>operate(operatorValue);
+equals.onclick = ()=>operate(curOperator);
 clear.onclick = ()=>clearAll();
 backspace.onclick =()=>erase();
 dot.onclick = ()=>addDot();
@@ -78,77 +77,77 @@ function triggerClick(value) {
 }
 
 function numberClick(digit) {
-  if(operatorValue === '') {
+  if(curOperator === '') {
     if(document.getElementById('show') !== null) {
-      //the number in the display.textContent is either the secondValue or
-      //the result of previous calculation
+      //the number in the bottomDisplay.textContent is either the secondOperand 
+      //or the result of previous calculation
       return; 
     }
-    if(firstValue === '0') {
-      firstValue = digit;
+    if(firstOperand === '0') {
+      firstOperand = digit;
     }
     else {
-      firstValue += digit;
+      firstOperand += digit;
     }
-    display.textContent = firstValue;
+    bottomDisplay.textContent = firstOperand;
   }
   else {
-    if(secondValue === '0') {
-      secondValue = digit;
+    if(secondOperand === '0') {
+      secondOperand = digit;
     }
     else {
-      secondValue += digit;
+      secondOperand += digit;
     }
-    display.textContent = secondValue; 
+    bottomDisplay.textContent = secondOperand; 
   }
 }
 
 function addDot() {
-  if(curDot === true) {
+  if(dotUsed === true) {
     //there's already one dot in this number
     return;
   }
-  if(operatorValue === '') {
+  if(curOperator === '') {
     if(document.getElementById('show') !== null) {
       return;
     }
-    firstValue += '.';
-    display.textContent = firstValue;
+    firstOperand += '.';
+    bottomDisplay.textContent = firstOperand;
   }
   else {
-    secondValue += '.';
-    display.textContent = secondValue;
+    secondOperand += '.';
+    bottomDisplay.textContent = secondOperand;
   }
-  curDot = true;
+  dotUsed = true;
 }
 
 function commandClick(com) {
-  curDot = false;
-  if(operatorValue !== '' && secondValue === '0') {
+  dotUsed = false;
+  if(curOperator !== '' && secondOperand === '0') {
     //old operator being replaced by the new one
-    operatorValue = com;
+    curOperator = com;
     let tes = document.getElementById('show');
     if(tes === null) {
-      display.textContent = firstValue + ' ' + operatorValue;
+      bottomDisplay.textContent = firstOperand + ' ' + curOperator;
     }
     else {
-      preDisplay.textContent = firstValue + ' ' + operatorValue;
+      topDisplay.textContent = firstOperand + ' ' + curOperator;
     }
     return;
   }
-  if(operatorValue !== '') {
+  if(curOperator !== '') {
     //haven't clicked 'equals', but already clicked another operator
-    operate(operatorValue);
-    operatorValue = com;
-    preDisplay.textContent = firstValue + ' ' + operatorValue;
+    operate(curOperator);
+    curOperator = com;
+    topDisplay.textContent = firstOperand + ' ' + curOperator;
     return;
   }
-  if(secondValue === '0') {
-    //there is no secondValue yet
-    operatorValue = com;
-    preDisplay.textContent = firstValue + ' ' + operatorValue;
-    preDisplay.setAttribute('id', 'show');
-    display.textContent = secondValue;
+  if(secondOperand === '0') {
+    //there is no secondOperand yet
+    curOperator = com;
+    topDisplay.textContent = firstOperand + ' ' + curOperator;
+    topDisplay.setAttribute('id', 'show');
+    bottomDisplay.textContent = secondOperand;
     return;
   }
 }
@@ -159,7 +158,7 @@ function operate(tipe) {
     return;
   }
   let hasil;
-  a = parseFloat(firstValue), b = parseFloat(secondValue);
+  a = parseFloat(firstOperand), b = parseFloat(secondOperand);
   if(tipe === '+') {
     hasil = add(a, b);
   }
@@ -170,8 +169,8 @@ function operate(tipe) {
     hasil = multiply(a, b);
   }
   else if(tipe === ':') {
-    if(secondValue === '0') {
-      display.textContent = 'Cant divide by 0 !';
+    if(secondOperand === '0') {
+      bottomDisplay.textContent = 'Cant divide by 0 !';
       return;
     }
     else {
@@ -192,58 +191,58 @@ function operate(tipe) {
       hasil = hasil.toFixed(12);
     }
   }
-  preDisplay.textContent += ' ' + secondValue + ' ' + '=';
-  secondValue = '0';
-  operatorValue = '';
-  firstValue = hasil.toString();
-  display.textContent = firstValue;
-  curDot = false;
+  topDisplay.textContent += ' ' + secondOperand + ' ' + '=';
+  secondOperand = '0';
+  curOperator = '';
+  firstOperand = hasil.toString();
+  bottomDisplay.textContent = firstOperand;
+  dotUsed = false;
 }
 
 function erase() {
-  //check if we should erase firstValue or secondValue
+  //check if we should erase firstOperand or secondOperand
   let tes = document.getElementById('show');
   if(tes === null) {
-    if(firstValue === '0') {
+    if(firstOperand === '0') {
       //disable backspace if there's no input yet
       return;
     }
-    if(firstValue.length > 1) {
-      if(firstValue[firstValue.length-1] === '.') {
-        curDot = false;
+    if(firstOperand.length > 1) {
+      if(firstOperand[firstOperand.length-1] === '.') {
+        dotUsed = false;
       }
-      firstValue = firstValue.slice(0, firstValue.length-1);
-      display.textContent = firstValue;
+      firstOperand = firstOperand.slice(0, firstOperand.length-1);
+      bottomDisplay.textContent = firstOperand;
     }
     else {
-      firstValue = '0';
-      display.textContent = '0';
+      firstOperand = '0';
+      bottomDisplay.textContent = '0';
     }
   }
   else {
-    if(secondValue === '0') {
+    if(secondOperand === '0') {
       //disable backspace if there's no input yet
       return;
     }
-    if(secondValue.length > 1) {
-      if(secondValue[secondValue.length-1] === '.') {
-        curDot = false;
+    if(secondOperand.length > 1) {
+      if(secondOperand[secondOperand.length-1] === '.') {
+        dotUsed = false;
       }
-      secondValue = secondValue.slice(0, secondValue.length-1);
-      display.textContent = secondValue;
+      secondOperand = secondOperand.slice(0, secondOperand.length-1);
+      bottomDisplay.textContent = secondOperand;
     }
     else {
-      secondValue = '0';
-      display.textContent = '0';
+      secondOperand = '0';
+      bottomDisplay.textContent = '0';
     }
   }
 }
 
 function clearAll() {
-  preDisplay.setAttribute('id', 'pre-display');
-  firstValue = '0';
-  secondValue = '0';
-  operatorValue = '';
-  display.textContent = '0';
-  curDot = false;
+  topDisplay.setAttribute('id', 'top-display');
+  firstOperand = '0';
+  secondOperand = '0';
+  curOperator = '';
+  bottomDisplay.textContent = '0';
+  dotUsed = false;
 }

@@ -45,7 +45,7 @@ body {
   flex-direction: column;
 }
 
-#pre-display {
+#top-display {
   font-size: 0.75rem;
   visibility: hidden;
 }
@@ -102,7 +102,7 @@ body {
   cursor: pointer;
 }
 
-.number:hover, .decimal:hover, #dot:hover {
+.number:hover, .decimal:hover, #ndot:hover {
   background-color: #bfbfbf;
   color: #272727;
 }
@@ -119,6 +119,6 @@ body {
   background-color: #F3D250;
 }
 
-.equals:hover {
+.nequal:hover {
   background-color: #84f586;
 }
