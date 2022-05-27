@@ -32,11 +32,13 @@ class Calculator {
   appendOperator(operator) {
     if(this.currentOperand === '') {
       if(this.currentOperator !== null) {
+        //replace old operator with the new one
         this.currentOperator = operator;
       }
       return;
     }
     if(this.previousOperand !== '') {
+      //haven't clicked 'equals' but already append another operator
       this.compute();
     }
     this.previousOperand = this.currentOperand;
