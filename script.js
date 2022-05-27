@@ -61,7 +61,7 @@ function triggerClick(value) {
   else if(value === '+') {
     value = 'plus';
   }
-  else if(value === ':') {
+  else if(value === '÷' || value === ':') {
     value = 'divide';
   } 
   else if(value === '*') {
@@ -171,7 +171,7 @@ function operate(tipe) {
   else if(tipe === 'x') {
     hasil = multiply(a, b);
   }
-  else if(tipe === ':') {
+  else if(tipe === '÷') {
     if(secondOperand === '0') {
       bottomDisplay.textContent = 'Cant divide by 0 !';
       return;
