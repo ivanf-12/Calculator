@@ -8,60 +8,6 @@ document.querySelector('[data-previous-operand]');
 const currentOperandTextElement = 
 document.querySelector('[data-current-operand]');
 
-document.onkeypress = (e)=>triggerClick(e.key);
-document.onkeydown = (e)=>triggerBackspace(e.key);
-document.onkeyup = (e)=>triggerEnter(e.key);
-
-function triggerClick(value) {
-  switch (value) {
-    case '0':
-      break;
-    case '1':
-      break;
-    case '2':
-      break;
-    case '3':
-      break;
-    case '4':
-      break;
-    case '5':
-      break;
-    case '6':
-      break;
-    case '7':
-      break;
-    case '8':
-      break;
-    case '9':
-      break;
-    case '+':
-      break;
-    case '-':
-      break;
-    case '*':
-      break;
-    case ':':
-      break;
-    case '=':
-      break;
-    case 'Delete':
-      break;
-    default:
-      return;
-  }
-  document.getElementById(`${value}`).click();
-}
-
-function triggerBackspace(value) {
-  if(value !== "Backspace") return;
-  deleteButton.click();
-}
-
-function triggerEnter(value) {
-  if(value !== "Enter") return;
-  equalsButton.click();
-}
-
 class Calculator {
   constructor(previousOperandTextElement, currentOperandTextElement) {
     this.previousOperandTextElement = previousOperandTextElement;
@@ -205,3 +151,30 @@ equalsButton.addEventListener('click', () => {
     calculator.updateDisplay();
   }
 });
+
+window.addEventListener('keydown', handleKeyboardInput);
+
+function handleKeyboardInput(e) {
+  if((e.key >= 0 && e.key <= 9) || e.key === '.') {
+    calculator.appendNumber(e.key);
+  }
+  else if(e.key === '=' || e.key === 'Enter') {
+    calculator.compute();
+  }
+  else if(e.key === 'Backspace' || e.key === 'Delete') {
+    calculator.delete();
+  }
+  else if(e.key === 'Escape') {
+    calculator.clearAll();
+  }
+  else if(e.key === '+' || e.key === '-' || e.key === '*') {
+    calculator.appendOperator(e.key);
+  }
+  else if(e.key === ':') {
+    calculator.appendOperator('÷');
+  }
+  else {
+    return;
+  }
+  calculator.updateDisplay();
+}
