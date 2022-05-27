@@ -54,15 +54,18 @@ body {
   font-size: 2rem;
 }
 
-.calculator-grid > button {
+.calculator-grid .buttons {
   font-size: 2rem;
   outline: none;
   background-color: #272727;
   color: white;
   border: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.calculator-grid > button:hover {
+.calculator-grid .buttons:hover {
   cursor: pointer;
   background-color: #bfbfbf;
   color: #272727;
