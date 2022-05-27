@@ -32,7 +32,7 @@ body {
 }
 
 .output {
-  background-color: white;
+  background-color: #ECECEC;
   grid-column: 1 / -1;
   display: flex;
   flex-direction: column;
@@ -80,6 +80,10 @@ body {
 .calculator-grid .operator:hover {
   background-color: #F3D250;
   color: white;
+}
+
+.equals {
+  font-family: sans-serif;
 }
 
 .calculator-grid .equals:hover {
