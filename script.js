@@ -9,8 +9,50 @@ const currentOperandTextElement =
 document.querySelector('[data-current-operand]');
 
 document.onkeypress = (e)=>triggerClick(e.key);
-document.onkeydown = (e)=>triggerBackspace(e.key());
-document.onkeyup = (e)=>triggerEnter(e.key);
+document.onkeydown = (e)=>triggerBackspace(e.key);
+
+function triggerClick(value) {
+  switch (value) {
+    case '0':
+      break;
+    case '1':
+      break;
+    case '2':
+      break;
+    case '3':
+      break;
+    case '4':
+      break;
+    case '5':
+      break;
+    case '6':
+      break;
+    case '7':
+      break;
+    case '8':
+      break;
+    case '9':
+      break;
+    case '+':
+      break;
+    case '-':
+      break;
+    case '*':
+      break;
+    case ':':
+      break;
+    case '=':
+      break;
+    default:
+      return;
+  }
+  document.getElementById(`${value}`).click();
+}
+
+function triggerBackspace(value) {
+  if(value !== "Backspace") return;
+  deleteButton.click();
+}
 
 class Calculator {
   constructor(previousOperandTextElement, currentOperandTextElement) {
