@@ -1,0 +1,88 @@
+@font-face {
+  font-family: quicksand;
+  src: url(./fonts/Quicksand_Bold.otf);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  font-family: 'quicksand', sans-serif;
+}
+
+body {
+  min-width: 100vw;
+  min-height: 100vh;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  background-color: #B4DFE5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.calculator-grid {
+  display: inline-grid;
+  grid-template-columns: repeat(4, 100px);
+  grid-template-rows: minmax(120px, auto) repeat(5, 100px);
+  justify-content: center;
+  align-content: center;
+  box-shadow: 0px 0px 10px black;
+  background-color: #bfbfbf;
+  grid-gap: 1px;
+}
+
+.output {
+  background-color: white;
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-end;
+  padding: 10px;
+  word-wrap: break-word;
+  word-break: break-all;
+  user-select: none;
+}
+
+.output .previous-operand {
+  color: rgba(0, 0, 0, .7);
+  font-size: 1.5rem;
+}
+
+.output .current-operand {
+  color: black;
+  font-size: 2rem;
+}
+
+.calculator-grid > button {
+  font-size: 2rem;
+  outline: none;
+  background-color: #272727;
+  color: white;
+  border: 0;
+}
+
+.calculator-grid > button:hover {
+  cursor: pointer;
+  background-color: #bfbfbf;
+  color: #272727;
+}
+
+.span-two {
+  grid-column: span 2;
+}
+
+.calculator-grid .span-two:hover {
+  background-color: #F78888;
+  color: white;
+}
+
+.calculator-grid .operator:hover {
+  background-color: #F3D250;
+  color: white;
+}
+
+.calculator-grid .equals:hover {
+  background-color: #84f586;
+  color: white;
+}
