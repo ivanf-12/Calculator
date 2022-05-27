@@ -8,6 +8,10 @@ document.querySelector('[data-previous-operand]');
 const currentOperandTextElement = 
 document.querySelector('[data-current-operand]');
 
+document.onkeypress = (e)=>triggerClick(e.key);
+document.onkeydown = (e)=>triggerBackspace(e.key());
+document.onkeyup = (e)=>triggerEnter(e.key);
+
 class Calculator {
   constructor(previousOperandTextElement, currentOperandTextElement) {
     this.previousOperandTextElement = previousOperandTextElement;
