@@ -90,3 +90,16 @@ body {
   background-color: #84f586;
   color: white;
 }
+
+@media (max-width: 35em) {
+  .calculator-grid {
+    display: inline-grid;
+    grid-template-columns: repeat(4, 90px);
+    grid-template-rows: minmax(120px, auto) repeat(5, 90px);
+    justify-content: center;
+    align-content: center;
+    box-shadow: 0px 0px 10px black;
+    background-color: #bfbfbf;
+    grid-gap: 0;
+  }
+}
