@@ -10,6 +10,7 @@ document.querySelector('[data-current-operand]');
 
 document.onkeypress = (e)=>triggerClick(e.key);
 document.onkeydown = (e)=>triggerBackspace(e.key);
+document.onkeyup = (e)=>triggerEnter(e.key);
 
 function triggerClick(value) {
   switch (value) {
@@ -43,6 +44,8 @@ function triggerClick(value) {
       break;
     case '=':
       break;
+    case 'Delete':
+      break;
     default:
       return;
   }
@@ -52,6 +55,11 @@ function triggerClick(value) {
 function triggerBackspace(value) {
   if(value !== "Backspace") return;
   deleteButton.click();
+}
+
+function triggerEnter(value) {
+  if(value !== "Enter") return;
+  equalsButton.click();
 }
 
 class Calculator {
@@ -96,7 +104,7 @@ class Calculator {
     if(isNaN(previousOperandNumber) || isNaN(currentOperandNumber)) {
       return;
     }
-    let result;
+    let result = 'div-0';
     switch (this.currentOperator) {
       case '+':
         result = previousOperandNumber + currentOperandNumber;
@@ -108,6 +116,10 @@ class Calculator {
         result = previousOperandNumber * currentOperandNumber;
         break;
       case '÷':
+        if(currentOperandNumber === 0) {
+          this.currentOperand = result;
+          return;
+        }
         result = previousOperandNumber / currentOperandNumber;
         break;  
       default:
@@ -185,5 +197,11 @@ clearAllButton.addEventListener('click', () => {
 
 equalsButton.addEventListener('click', () => {
   calculator.compute();
-  calculator.updateDisplay();
+  if(calculator.currentOperand === 'div-0') {
+    alert('can\'t divide by 0 !');
+    calculator.currentOperand = '0';
+  }
+  else{
+    calculator.updateDisplay();
+  }
 });
