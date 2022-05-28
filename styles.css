@@ -5,7 +5,6 @@
 
 *, *::before, *::after {
   box-sizing: border-box;
-  font-family: 'quicksand', sans-serif;
 }
 
 body {
@@ -16,11 +15,14 @@ body {
   margin: 0;
   background-color: #B4DFE5;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  overflow-x: hidden;
 }
 
 .calculator-grid {
+  font-family: 'quicksand', sans-serif;
   display: inline-grid;
   grid-template-columns: repeat(4, 100px);
   grid-template-rows: minmax(120px, auto) repeat(5, 100px);
@@ -29,6 +31,28 @@ body {
   box-shadow: 0px 0px 10px black;
   background-color: #bfbfbf;
   grid-gap: 1px;
+  margin-top: 60px;
+  margin-bottom: 60px;
+  user-select: none;
+}
+
+footer {
+  font-family: "Times New Roman";
+  color: #ECECEC;
+  background-color: #5DA2D5;
+  width: 100%;
+  margin-top: auto;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+}
+
+i {
+  color: white;
+  margin-left: 0.5rem;
+  font-size: 1rem;
 }
 
 .output {
@@ -41,7 +65,6 @@ body {
   padding: 10px;
   word-wrap: break-word;
   word-break: break-all;
-  user-select: none;
 }
 
 .output .previous-operand {
