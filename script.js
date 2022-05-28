@@ -172,7 +172,7 @@ function handleKeyboardInput(e) {
   else if(e.key === '+' || e.key === '-' || e.key === '*') {
     calculator.appendOperator(e.key);
   }
-  else if(e.key === ':' || e.key === '/') {
+  else if(e.key === ':' || e.key === 'Backslash') {
     calculator.appendOperator('÷');
   }
   else {
